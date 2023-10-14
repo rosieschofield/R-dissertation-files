@@ -1,0 +1,863 @@
+CLanimals=subset(Canimals, Canimals$CHRONOLOGY=="LATE ANTIQUITY") 
+
+CManimals=subset(Canimals, Canimals$CHRONOLOGY=="MEDIEVAL") 
+DLanimals=subset(Danimals, Danimals$CHRONOLOGY=="LATE ANTIQUITY") 
+
+DManimals=subset(Danimals, Danimals$CHRONOLOGY=="MEDIEVAL") 
+
+wilcox.test(x=DBanimals$carbon, y=DIanimals$carbon)  
+FBanimals=subset(Fanimals, Fanimals$CHRONOLOGY=="BRONZE AGE") 
+
+FIanimals=subset(Fanimals, Fanimals$CHRONOLOGY=="IRON AGE") 
+FLanimals=subset(Fanimals, Fanimals$CHRONOLOGY=="LATE ANTIQUITY") 
+FManimals=subset(Fanimals, Fanimals$CHRONOLOGY=="MEDIEVAL") 
+kruskal.test(Fanimals$carbon~Fanimals$CHRONOLOGY, data=Fanimals) 
+GIanimals=subset(Ganimals, Ganimals$CHRONOLOGY=="IRON AGE") 
+
+GLanimals=subset(Ganimals, Ganimals$CHRONOLOGY=="LATE ANTIQUITY") 
+
+GManimals=subset(Ganimals, Ganimals$CHRONOLOGY=="MEDIEVAL") 
+ABhumans=subset(Ahuman, Ahuman$CHRONOLOGY=="BRONZE AGE") 
+AIhumans=subset(Ahuman, Ahuman$CHRONOLOGY=="IRON AGE") 
+ALhumans=subset(Ahuman, Ahuman$CHRONOLOGY=="LATE ANTIQUITY") 
+AMhumans=subset(Ahuman, Ahuman$CHRONOLOGY=="MEDIEVAL") 
+CLhumans=subset(Chuman, Chuman$CHRONOLOGY=="LATE ANTIQUITY") 
+
+CMhumans=subset(Chuman, Chuman$CHRONOLOGY=="MEDIEVAL") 
+
+wilcox.test(x=CBhumans$carbon, y=CIhumans$carbon)  
+DLhumans=subset(Dhuman, Dhuman$CHRONOLOGY=="LATE ANTIQUITY") 
+
+DMhumans=subset(Dhuman, Dhuman$CHRONOLOGY=="MEDIEVAL") 
+
+t.test(x=DBhumans$carbon, y=DIhumans$carbon)  
+
+EBhumans=subset(Ehuman, Ehuman$CHRONOLOGY=="BRONZE AGE") 
+kruskal.test(Ehuman$carbon~Ehuman$CHRONOLOGY, data=Ehuman) 
+
+CHEC=dunn_test(Ehuman, carbon~CHRONOLOGY) 
+View(CHEC) 
+
+FBhumans=subset(Fhuman, Fhuman$CHRONOLOGY=="BRONZE AGE") 
+
+FIhumans=subset(Fhuman, Fhuman$CHRONOLOGY=="IRON AGE") 
+kruskal.test(Fhuman$carbon~Fhuman$CHRONOLOGY, data=Fhuman) 
+
+CHFC=dunn_test(Fhuman, carbon~CHRONOLOGY) 
+View(CHFC) 
+
+GBhumans=subset(Ghuman, Ghuman$CHRONOLOGY=="BRONZE AGE") 
+GIhumans=subset(Ghuman, Ghuman$CHRONOLOGY=="IRON AGE") 
+
+GLhumans=subset(Ghuman, Ghuman$CHRONOLOGY=="LATE ANTIQUITY") 
+GMhumans=subset(Ghuman, Ghuman$CHRONOLOGY=="MEDIEVAL") 
+kruskal.test(Ghuman$carbon~Ghuman$CHRONOLOGY, data=Ghuman) 
+
+CHGC=dunn_test(Ghuman, carbon~CHRONOLOGY) 
+View(CHGC) 
+kruskal.test(Aanimals$nitrogen~Aanimals$CHRONOLOGY, data=Aanimals) 
+
+NAAC=dunn_test(Aanimals, nitrogen~CHRONOLOGY) 
+kruskal.test(Fanimals$nitrogen~Fanimals$CHRONOLOGY, data=Fanimals) 
+
+NAFC=dunn_test(Fanimals, nitrogen~CHRONOLOGY) 
+oneway.test(Fhuman$nitrogen ~ Fhuman$CHRONOLOGY, data=Fhuman)  
+
+result=aov(Fhuman$nitrogen ~ Fhuman$CHRONOLOGY, data=Fhuman) 
+
+TukeyHSD(result) 
+setwd("~/Documents/BULKCSV") 
+
+bulk=read.csv("BULKY.csv") 
+
+install.packages("bayesboot") 
+
+library(bayesboot) 
+
+human=subset(bulk, bulk$species=="human") 
+
+humanA=subset(human, human$ENVIRONMENT=="A - SEMI-ARID STEPPE") 
+
+bhac=bayesboot(humanA$carbon, weighted.mean, use.weights = TRUE) 
+
+summary(bhac) 
+
+plot(bhac) 
+
+library(ggplot2) 
+
+ggplot(bhac, mapping=aes(bhac$V1)) + geom_density(fill="hotpink2") 
+
+humanB=subset(human, human$ENVIRONMENT=="B - FOREST STEPPE") 
+
+humanC=subset(human, human$ENVIRONMENT=="C - WEST STEPPE") 
+
+humanD=subset(human, human$ENVIRONMENT=="D - MOUNTAIN/FOREST STEPPE") 
+
+humanE=subset(human, human$ENVIRONMENT=="E - ARID/MOUNTAIN STEPPE") 
+
+humanF=subset(human, human$ENVIRONMENT=="F - DESERT OASES") 
+
+humanG=subset(human, human$ENVIRONMENT=="G - ARID DESERT") 
+
+herbivores=subset(bulk, bulk$species=="horse"|bulk$species=="donkey"|bulk$species=="hemione"|bulk$species=="camelid"|bulk$species=="bos"|bulk$species=="cattle"|bulk$species=="caprine"|bulk$species=="ovicaprid"|bulk$species=="goat"|bulk$species=="sheep"|bulk$species=="wild sheep"|bulk$species=="ibex"|bulk$species=="deer"|bulk$species=="red deer"|bulk$species=="roe deer"| bulk$species=="wild deer"|bulk$species=="gazella"|bulk$species=="saiga") 
+
+herbivoresA=subset(herbivores, herbivores$ENVIRONMENT=="A - SEMI-ARID STEPPE") 
+
+herbivoresB=subset(herbivores, herbivores$ENVIRONMENT=="B - FOREST STEPPE") 
+
+herbivoresC=subset(herbivores, herbivores$ENVIRONMENT=="C - WEST STEPPE") 
+
+herbivoresD=subset(herbivores, herbivores$ENVIRONMENT=="D - MOUNTAIN/FOREST STEPPE") 
+
+herbivoresE=subset(herbivores, herbivores$ENVIRONMENT=="E - ARID/MOUNTAIN STEPPE") 
+
+herbivoresF=subset(herbivores, herbivores$ENVIRONMENT=="F - DESERT OASES") 
+
+herbivoresG=subset(herbivores, herbivores$ENVIRONMENT=="G - ARID DESERT") 
+
+humanAbronze=subset(humanA, humanA$CHRONOLOGY=="BRONZE AGE") 
+
+humanAiron=subset(humanA, humanA$CHRONOLOGY=="IRON AGE") 
+
+humanAlant=subset(humanA, humanA$CHRONOLOGY=="LATE ANTIQUITY") 
+
+humanAmed=subset(humanA, humanA$CHRONOLOGY=="MEDIEVAL") 
+
+humanBbronze=subset(humanB, humanB$CHRONOLOGY=="BRONZE AGE") 
+
+humanBiron=subset(humanB, humanB$CHRONOLOGY=="IRON AGE") 
+
+humanBlant=subset(humanB, humanB$CHRONOLOGY=="LATE ANTIQUITY") 
+
+humanBmed=subset(humanB, humanB$CHRONOLOGY=="MEDIEVAL") 
+
+humanCbronze=subset(humanC, humanC$CHRONOLOGY=="BRONZE AGE") 
+
+humanCiron=subset(humanC, humanC$CHRONOLOGY=="IRON AGE") 
+
+humanClant=subset(humanC, humanC$CHRONOLOGY=="LATE ANTIQUITY") 
+
+humanCmed=subset(humanC, humanC$CHRONOLOGY=="MEDIEVAL") 
+
+humanDbronze=subset(humanD, humanD$CHRONOLOGY=="BRONZE AGE") 
+
+humanDiron=subset(humanD, humanD$CHRONOLOGY=="IRON AGE") 
+
+humanDlant=subset(humanD, humanD$CHRONOLOGY=="LATE ANTIQUITY") 
+
+humanDmed=subset(humanD, humanD$CHRONOLOGY=="MEDIEVAL") 
+
+humanEbronze=subset(humanE, humanE$CHRONOLOGY=="BRONZE AGE") 
+
+humanEiron=subset(humanE, humanE$CHRONOLOGY=="IRON AGE") 
+
+humanElant=subset(humanE, humanE$CHRONOLOGY=="LATE ANTIQUITY") 
+
+humanEmed=subset(humanE, humanE$CHRONOLOGY=="MEDIEVAL") 
+
+humanFbronze=subset(humanF, humanF$CHRONOLOGY=="BRONZE AGE") 
+
+humanFiron=subset(humanF, humanF$CHRONOLOGY=="IRON AGE") 
+
+humanFlant=subset(humanF, humanF$CHRONOLOGY=="LATE ANTIQUITY") 
+
+humanFmed=subset(humanF, humanF$CHRONOLOGY=="MEDIEVAL") 
+
+humanGbronze=subset(humanG, humanG$CHRONOLOGY=="BRONZE AGE") 
+
+humanGiron=subset(humanG, humanG$CHRONOLOGY=="IRON AGE") 
+
+humanGlant=subset(humanG, humanG$CHRONOLOGY=="LATE ANTIQUITY") 
+
+humanGmed=subset(humanG, humanG$CHRONOLOGY=="MEDIEVAL") 
+
+herbivoresAbronze=subset(herbivoresA, herbivoresA$CHRONOLOGY=="BRONZE AGE") 
+
+herbivoresBbronze=subset(herbivoresB, herbivoresB$CHRONOLOGY=="BRONZE AGE") 
+
+herbivoresCbronze=subset(herbivoresC, herbivoresC$CHRONOLOGY=="BRONZE AGE") 
+
+herbivoresDbronze=subset(herbivoresD, herbivoresD$CHRONOLOGY=="BRONZE AGE") 
+
+herbivoresEbronze=subset(herbivoresE, herbivoresE$CHRONOLOGY=="BRONZE AGE") 
+
+herbivoresFbronze=subset(herbivoresF, herbivoresF$CHRONOLOGY=="BRONZE AGE") 
+
+herbivoresGbronze=subset(herbivoresG, herbivoresG$CHRONOLOGY=="BRONZE AGE") 
+
+herbivoresAiron=subset(herbivoresA, herbivoresA$CHRONOLOGY=="IRON AGE") 
+
+herbivoresBiron=subset(herbivoresB, herbivoresB$CHRONOLOGY=="IRON AGE") 
+
+herbivoresCiron=subset(herbivoresC, herbivoresC$CHRONOLOGY=="IRON AGE") 
+
+herbivoresDiron=subset(herbivoresD, herbivoresD$CHRONOLOGY=="IRON AGE") 
+
+herbivoresEiron=subset(herbivoresE, herbivoresE$CHRONOLOGY=="IRON AGE") 
+
+herbivoresFiron=subset(herbivoresF, herbivoresF$CHRONOLOGY=="IRON AGE") 
+
+herbivoresGiron=subset(herbivoresG, herbivoresG$CHRONOLOGY=="IRON AGE") 
+
+herbivoresAlant=subset(herbivoresA, herbivoresA$CHRONOLOGY=="LATE ANTIQUITY") 
+
+herbivoresBlant=subset(herbivoresB, herbivoresB$CHRONOLOGY=="LATE ANTIQUITY") 
+
+herbivoresClant=subset(herbivoresC, herbivoresC$CHRONOLOGY=="LATE ANTIQUITY") 
+
+herbivoresDlant=subset(herbivoresD, herbivoresD$CHRONOLOGY=="LATE ANTIQUITY") 
+
+herbivoresElant=subset(herbivoresE, herbivoresE$CHRONOLOGY=="LATE ANTIQUITY") 
+
+herbivoresFlant=subset(herbivoresF, herbivoresF$CHRONOLOGY=="LATE ANTIQUITY") 
+
+herbivoresGlant=subset(herbivoresG, herbivoresG$CHRONOLOGY=="LATE ANTIQUITY") 
+
+herbivoresAmed=subset(herbivoresA, herbivoresA$CHRONOLOGY=="MEDIEVAL") 
+
+herbivoresBmed=subset(herbivoresB, herbivoresB$CHRONOLOGY=="MEDIEVAL") 
+
+herbivoresCmed=subset(herbivoresC, herbivoresC$CHRONOLOGY=="MEDIEVAL") 
+
+herbivoresDmed=subset(herbivoresD, herbivoresD$CHRONOLOGY=="MEDIEVAL") 
+
+herbivoresEmed=subset(herbivoresE, herbivoresE$CHRONOLOGY=="MEDIEVAL") 
+
+herbivoresFmed=subset(herbivoresF, herbivoresF$CHRONOLOGY=="MEDIEVAL") 
+
+herbivoresGmed=subset(herbivoresG, herbivoresG$CHRONOLOGY=="MEDIEVAL") 
+
+humannomad=subset(human, human$SOCIOECONOMIC=="NOMADIC") 
+
+humanurban=subset(human, human$SOCIOECONOMIC=="URBAN") 
+
+herbivorenomad=subset(herbivores, herbivores$SOCIOECONOMIC=="NOMADIC") 
+
+herbivoreurban=subset(herbivores, herbivores$SOCIOECONOMIC=="URBAN") 
+
+humannomadbronze=subset(humannomad, humannomad$CHRONOLOGY=="BRONZE AGE") 
+
+humanurbanbronze=subset(humanurban, humanurban$CHRONOLOGY=="BRONZE AGE") 
+
+herbivorenomadbronze=subset(herbivorenomad, herbivorenomad$CHRONOLOGY=="BRONZE AGE") 
+
+herbivoreurbanbronze=subset(herbivoreurban, herbivoreurban$CHRONOLOGY=="BRONZE AGE") 
+
+humannomadiron=subset(humannomad, humannomad$CHRONOLOGY=="IRON AGE") 
+
+humanurbaniron=subset(humanurban, humanurban$CHRONOLOGY=="IRON AGE") 
+
+herbivorenomadiron=subset(herbivorenomad, herbivorenomad$CHRONOLOGY=="IRON AGE") 
+
+herbivoreurbaniron=subset(herbivoreurban, herbivoreurban$CHRONOLOGY=="IRON AGE") 
+
+humannomadlant=subset(humannomad, humannomad$CHRONOLOGY=="LATE ANTIQUITY") 
+
+humanurbanlant=subset(humanurban, humanurban$CHRONOLOGY=="LATE ANTIQUITY") 
+
+herbivorenomadlant=subset(herbivorenomad, herbivorenomad$CHRONOLOGY=="LATE ANTIQUITY") 
+
+herbivoreurbanlant=subset(herbivoreurban, herbivoreurban$CHRONOLOGY=="LATE ANTIQUITY") 
+
+humannomadmed=subset(humannomad, humannomad$CHRONOLOGY=="MEDIEVAL") 
+
+humanurbanmed=subset(humanurban, humanurban$CHRONOLOGY=="MEDIEVAL") 
+
+herbivorenomadnmed=subset(herbivorenomad, herbivorenomad$CHRONOLOGY=="MEDIEVAL") 
+
+herbivoreurbanmed=subset(herbivoreurban, herbivoreurban$CHRONOLOGY=="MEDIEVAL") 
+
+caprine=subset(bulk, bulk$species=="caprine"|bulk$species=="ovicaprid"|bulk$species=="goat"|bulk$species=="sheep"|bulk$species=="wild sheep"|bulk$species=="ibex") 
+
+cattle=subset(bulk, bulk$species=="bos"|bulk$species=="cattle") 
+
+equus=subset(bulk, bulk$species=="horse"|bulk$species=="donkey"|bulk$species=="hemione") 
+
+deer=subset(bulk, bulk$species=="deer"|bulk$species=="red deer"|bulk$species=="roe deer"| bulk$species=="wild deer") 
+
+caprinebronze=subset(caprine, caprine$CHRONOLOGY=="BRONZE AGE") 
+
+caprineiron=subset(caprine, caprine$CHRONOLOGY=="IRON AGE") 
+
+herbivorenomadlant=subset(herbivorenomad, herbivorenomad$CHRONOLOGY=="LATE ANTIQUITY") 
+
+caprinelant=subset(caprine, caprine$CHRONOLOGY=="LATE ANTIQUITY") 
+
+caprinemed=subset(caprine, caprine$CHRONOLOGY=="MEDIEVAL") 
+
+cattlebronze=subset(cattle, cattle$CHRONOLOGY=="BRONZE AGE") 
+
+cattleiron=subset(cattle, cattle$CHRONOLOGY=="IRON AGE") 
+
+cattlelant=subset(cattle, cattle$CHRONOLOGY=="LATE ANTIQUITY") 
+
+cattlemed=subset(cattle, cattle$CHRONOLOGY=="MEDIEVAL") 
+
+equusbronze=subset(equus, equus$CHRONOLOGY=="BRONZE AGE") 
+
+equusiron=subset(equus, equus$CHRONOLOGY=="IRON AGE") 
+
+equuslant=subset(equus, equus$CHRONOLOGY=="LATE ANTIQUITY") 
+
+equusmed=subset(equus, equus$CHRONOLOGY=="MEDIEVAL") 
+
+deerbronze=subset(deer, deer$CHRONOLOGY=="BRONZE AGE") 
+
+deeriron=subset(deer, deer$CHRONOLOGY=="IRON AGE") 
+
+deerlant=subset(deer, deer$CHRONOLOGY=="LATE ANTIQUITY") 
+
+deermed=subset(deer, deer$CHRONOLOGY=="MEDIEVAL") 
+
+bhabc=bayesboot(humanAbronze$carbon, weighted.mean, use.weights = TRUE) 
+
+summary(bhabc) 
+
+bhaic=bayesboot(humanAiron$carbon, weighted.mean, use.weights = TRUE) 
+
+summary(bhaic) 
+
+bhalc=bayesboot(humanAlant$carbon, weighted.mean, use.weights = TRUE) 
+
+summary(bhalc) 
+
+bhamc=bayesboot(humanAmed$carbon, weighted.mean, use.weights = TRUE) 
+
+summary(bhamc) 
+
+bhabn=bayesboot(humanAbronze$nitrogen, weighted.mean, use.weights = TRUE) 
+
+summary(bhabn) 
+
+bhan=bayesboot(humanA$nitrogen, weighted.mean, use.weights = TRUE) 
+
+summary(bhan) 
+
+bhain=bayesboot(humanAiron$nitrogen, weighted.mean, use.weights = TRUE) 
+
+summary(bhain) 
+
+bhaln=bayesboot(humanAlant$nitrogen, weighted.mean, use.weights = TRUE) 
+
+summary(bhaln) 
+
+bhamn=bayesboot(humanAmed$nitrogen, weighted.mean, use.weights = TRUE) 
+
+summary(bhamn) 
+
+bhbc=bayesboot(humanB$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhbc) 
+
+bhbbc=bayesboot(humanBbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhbbc) 
+
+bhbic=bayesboot(humanBiron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhbic) 
+
+bhblc=bayesboot(humanBlant$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhblc) 
+
+bhbmc=bayesboot(humanBmed$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhbmc) 
+
+bhbn=bayesboot(humanB$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhbn) 
+
+bhbNn=bayesboot(humanBbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhbNn) 
+
+bhbin=bayesboot(humanBiron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhbin) 
+
+bhbln=bayesboot(humanBlant$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhbln) 
+
+bhbmn=bayesboot(humanBmed$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhbmn) 
+
+bhcc=bayesboot(humanC$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhcc) 
+
+bhcbc=bayesboot(humanCbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhcbc) 
+
+bhcic=bayesboot(humanCiron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhcic) 
+
+bhcn=bayesboot(humanC$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhcn) 
+
+bhcbn=bayesboot(humanCbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhcbn) 
+
+bhcin=bayesboot(humanCiron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhcin) 
+
+bhdc=bayesboot(humanD$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhdc) 
+
+bhdbc=bayesboot(humanDbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhdbc) 
+
+bhdic=bayesboot(humanDiron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhdic) 
+
+bhdn=bayesboot(humanD$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhdn) 
+
+bhdbn=bayesboot(humanDbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhdbn) 
+
+bhdin=bayesboot(humanDiron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhdin) 
+
+bhec=bayesboot(humanE$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhec) 
+
+bhebc=bayesboot(humanEbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhebc) 
+
+bheic=bayesboot(humanEiron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bheic) 
+
+bhelc=bayesboot(humanElant$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhelc) 
+
+bhemc=bayesboot(humanEmed$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhemc) 
+
+bhen=bayesboot(humanE$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhen) 
+
+bhebn=bayesboot(humanEbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhebn) 
+
+bhein=bayesboot(humanEiron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhein) 
+
+bheln=bayesboot(humanElant$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bheln) 
+
+bhemn=bayesboot(humanEmed$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhemn) 
+
+bhfc=bayesboot(humanF$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhfc) 
+
+bhfic=bayesboot(humanFiron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhfic) 
+
+bhflc=bayesboot(humanFlant$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhflc) 
+
+bhfmc=bayesboot(humanFmed$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhfmc) 
+
+bhfn=bayesboot(humanF$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhfn) 
+
+bhfin=bayesboot(humanFiron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhfin) 
+
+bhfln=bayesboot(humanFlant$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhfln) 
+
+bhfmn=bayesboot(humanFlant$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhfmn) 
+
+bhgc=bayesboot(humanG$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhgc) 
+
+bhgbc=bayesboot(humanGbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhgbc) 
+
+bhglc=bayesboot(humanGlant$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhglc) 
+
+bhgmc=bayesboot(humanGmed$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhgmc) 
+
+bhgn=bayesboot(humanG$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhgn) 
+
+bhgbn=bayesboot(humanGbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhgbn) 
+
+bhgln=bayesboot(humanGlant$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhgln) 
+
+bhgmn=bayesboot(humanGmed$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhgmn) 
+
+baac=bayesboot(herbivoresA$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baac) 
+
+baabc=bayesboot(herbivoresAbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baabc) 
+
+baaic=bayesboot(herbivoresAiron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baaic) 
+
+baalc=bayesboot(herbivoresAlant$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baalc) 
+
+baan=bayesboot(herbivoresA$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baan) 
+
+baabn=bayesboot(herbivoresAbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baabn) 
+
+baain=bayesboot(herbivoresAiron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baain) 
+
+baaln=bayesboot(herbivoresAlant$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baaln) 
+
+babc=bayesboot(herbivoresB$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(babc) 
+
+babbc=bayesboot(herbivoresBbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(babbc) 
+
+babic=bayesboot(herbivoresBiron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(babic) 
+
+babn=bayesboot(herbivoresB$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(babn) 
+
+babbn=bayesboot(herbivoresBbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(babbn) 
+
+babin=bayesboot(herbivoresBiron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(babin) 
+
+bacc=bayesboot(herbivoresC$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bacc) 
+
+bacbc=bayesboot(herbivoresCbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bacbc) 
+
+bacic=bayesboot(herbivoresCiron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bacic) 
+
+bacn=bayesboot(herbivoresC$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bacn) 
+
+bacbn=bayesboot(herbivoresCbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bacbn) 
+
+bacin=bayesboot(herbivoresCiron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bacin) 
+
+badc=bayesboot(herbivoresD$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(badc) 
+
+badbc=bayesboot(herbivoresDbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(badbc) 
+
+badic=bayesboot(herbivoresDiron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(badic) 
+
+badn=bayesboot(herbivoresD$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(badn) 
+
+badbn=bayesboot(herbivoresDbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(badbn) 
+
+badin=bayesboot(herbivoresDiron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(badin) 
+
+baec=bayesboot(herbivoresE$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baec) 
+
+baebc=bayesboot(herbivoresEbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baebc) 
+
+baeic=bayesboot(herbivoresEiron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baeic) 
+
+baelc=bayesboot(herbivoresElant$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baelc) 
+
+baemc=bayesboot(herbivoresEmed$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baemc) 
+
+baen=bayesboot(herbivoresE$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baen) 
+
+baebn=bayesboot(herbivoresEbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baebn) 
+
+baein=bayesboot(herbivoresEiron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baein) 
+
+baeln=bayesboot(herbivoresElant$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baeln) 
+
+baemn=bayesboot(herbivoresEmed$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baemn) 
+
+bafc=bayesboot(herbivoresF$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bafc) 
+
+bafic=bayesboot(herbivoresFiron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bafic) 
+
+baflc=bayesboot(herbivoresFlant$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(baflc) 
+
+bafn=bayesboot(herbivoresF$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bafn) 
+
+bafin=bayesboot(herbivoresFiron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bafin) 
+
+bafln=bayesboot(herbivoresFlant$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bafln) 
+
+bagc=bayesboot(herbivoresG$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bagc) 
+
+bagbc=bayesboot(herbivoresGbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bagbc) 
+
+bagmc=bayesboot(herbivoresGmed$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bagmc) 
+
+bagn=bayesboot(herbivoresG$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bagn) 
+
+bagbn=bayesboot(herbivoresGbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bagbn) 
+
+bagmn=bayesboot(herbivoresGmed$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bagmn) 
+
+bhnc=bayesboot(humannomad$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhnc) 
+
+bhnbc=bayesboot(humannomadbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhnbc) 
+
+bhnic=bayesboot(humannomadiron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhnic) 
+
+bhnlc=bayesboot(humannomadlant$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhnlc) 
+
+bhnmc=bayesboot(humannomadmed$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhnmc) 
+
+bhnn=bayesboot(humannomad$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhnn) 
+
+bhnbn=bayesboot(humannomadbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhnbn) 
+
+bhnin=bayesboot(humannomadiron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhnin) 
+
+bhnln=bayesboot(humannomadlant$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhnln) 
+
+bhnmn=bayesboot(humannomadmed$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhnmn) 
+
+bhuc=bayesboot(humanurban$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhuc) 
+
+bhubc=bayesboot(humanurbanbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhubc) 
+
+bhuic=bayesboot(humanurbaniron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhuic) 
+
+bhumc=bayesboot(humanurbanmed$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhumc) 
+
+bhun=bayesboot(humanurban$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhun) 
+
+bhubn=bayesboot(humanurbanbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhubn) 
+
+bhuin=bayesboot(humanurbaniron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhuin) 
+
+bhumn=bayesboot(humanurbanmed$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bhumn) 
+
+banc=bayesboot(herbivorenomad$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(banc) 
+
+banbc=bayesboot(herbivorenomadbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(banbc) 
+
+banic=bayesboot(herbivorenomadiron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(banic) 
+
+banlc=bayesboot(herbivorenomadlant$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(banlc) 
+
+banmc=bayesboot(herbivorenomadnmed$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(banmc) 
+
+bann=bayesboot(herbivorenomad$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(bann) 
+
+banbn=bayesboot(herbivorenomadbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(banbn) 
+
+banin=bayesboot(herbivorenomadiron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(banin) 
+
+banln=bayesboot(herbivorenomadlant$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE) 
+
+summary(banln) 
+animal=subset(animal, !animal$ENVIRONMENT%in%c(""), !animal$CHRONOLOGY%in%c("pre-BRONZE AGE", "MODERN", ""))
+AE=ggplot(animal, mapping=aes(x=carbon, y=nitrogen, col=ENVIRONMENT)) + geom_point(aes(col=ENVIRONMENT)) + xlab(expression(paste(delta^{13}, "C (\u2030)"))) + ylab(expression(paste(delta^{15}, "N (\u2030)"))) + theme_bw() + scale_color_manual(values=c("darkorange1", "mediumseagreen", "hotpink2", "mediumpurple3", "yellow", "deepskyblue3", "chocolate4"))
+AE + facet_wrap(vars(ENVIRONMENT), nrow=2) + theme(strip.background = element_blank()) + theme(legend.position = "none", plot.margin=margin(10, 10, 10, 10))
+HE=ggplot(human, mapping=aes(x=carbon, y=nitrogen, col=ENVIRONMENT)) + geom_point(aes(col=ENVIRONMENT)) + xlab(expression(paste(delta^{13}, "C (\u2030)"))) + ylab(expression(paste(delta^{15}, "N (\u2030)"))) + theme_bw() + scale_color_manual(values=c("darkorange1", "mediumseagreen", "hotpink2", "mediumpurple3", "yellow", "deepskyblue3", "chocolate4"))
+HE + facet_wrap(vars(ENVIRONMENT), nrow=2) + theme(strip.background = element_blank()) + theme(legend.position = "none", plot.margin=margin(10, 10, 10, 10)) + scale_x_continuous(breaks = seq(-24, -10, by = 2))
+Aanimals=subset(animals, animals$ENVIRONMENT=="A - SEMI-ARID STEPPE") 
+
+Banimals=subset(animals, animals$ENVIRONMENT=="B - FOREST STEPPE") 
+
+Canimals=subset(animals, animals$ENVIRONMENT=="C - WEST STEPPE") 
+
+Danimals=subset(animals, animals$ENVIRONMENT=="D - MOUNTAIN/FOREST STEPPE") 
+
+Eanimals=subset(animals, animals$ENVIRONMENT=="E - ARID/MOUNTAIN STEPPE") 
+
+Fanimals=subset(animals, animals$ENVIRONMENT=="F - DESERT OASES") 
+
+Ganimals=subset(animals, animals$ENVIRONMENT=="G - ARID DESERT") 
+boxplot(Aanimals$carbon, Banimals$carbon, Canimals$carbon, Danimals$carbon, Eanimals$carbon, Fanimals$carbon, Ganimals$carbon, outline=FALSE, ylab="δ13C‰", main="Carbon Isotopic Differences in Animals in Different Environments ", col=c("darkorange1", "mediumseagreen", "hotpink2", "mediumpurple3","yellow", "deepskyblue3","chocolate4")) 
+
+axis(1, at=c(1, 2, 3, 4, 5, 6, 7), labels=c("A-Semi-Arid Steppe", "B-Forest Steppe", "C-West Steppe", "D-Mountain/Forest Steppe", "E-Arid/Mountain Steppe", "F-Desert Oases", "G-Arid Desert"), cex.axis=0.6) 
+boxplot(animalurban$carbon, animalnomad$carbon, outline=FALSE, ylab="δ13C‰", main="Carbon Isotopic Differences in Animals in Urban or Nomadic Societies", col=c("firebrick", "midnightblue")) 
+
+axis(1, at=c(1, 2), labels=c("Urban", "Nomadic"), cex.axis=1.5) 

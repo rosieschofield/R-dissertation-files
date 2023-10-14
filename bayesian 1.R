@@ -1,0 +1,67 @@
+abc=bayesboot(herbivoresbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(abc)
+aic=bayesboot(herbivoresiron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(aic)
+alc=bayesboot(herbivoreslant$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(alc)
+amc=bayesboot(herbivoresmed$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(amc)
+fill = c("Bronze Age" = "darkslategray", "Iron Age" = "gold4", "Late Antiquity" = "cornsilk3", "Medieval"="navajowhite")
+acc=ggplot(abc, mapping=aes(abc$V1)) + geom_density(aes(fill="Bronze Age"), alpha=0.5) + xlab(expression(paste(delta^{13}, "C (\u2030)"))) + labs(title="Posterior Distribution of Domestic Herbivores in Each Period", fill="legend") + theme_bw() +scale_fill_manual(values = fill)
+acc + theme(legend.position="bottom", legend.title=element_blank())
+acc1=ggplot_add(aic$v1, acc, aic) + geom_density(aes(aic$V1, fill="Iron Age"), alpha=0.5) + labs(fill="legend")
+acc1 + theme(legend.position="bottom", legend.title=element_blank())
+acc2=ggplot_add(alc$v1, acc1, alc) + geom_density(aes(alc$V1, fill="Late Antiquity"), alpha=0.5) + labs(fill="legend")
+acc2 + theme(legend.position="bottom", legend.title=element_blank())
+acc3=ggplot_add(amc$v1, acc2, amc) + geom_density(aes(amc$V1, fill="Medieval"), alpha=0.5) + labs(fill="legend")
+acc3 + theme(legend.position="bottom", legend.title=element_blank())
+abn=bayesboot(herbivoresbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(abn)
+ain=bayesboot(herbivoresiron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(ain)
+aln=bayesboot(herbivoreslant$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(aln)
+amn=bayesboot(herbivoresmed$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(amn)
+hbc=bayesboot(humanbronze$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(hbc)
+hic=bayesboot(humaniron$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(hic)
+hlc=bayesboot(humanlant$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(hlc)
+hmc=bayesboot(hUMANmed$carbon, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(hmc)
+hbn=bayesboot(humanbronze$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(hbn)
+hin=bayesboot(humaniron$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(hin)
+hln=bayesboot(humanlant$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(hln)
+hmn=bayesboot(hUMANmed$nitrogen, weighted.mean, use.weights = TRUE, na.rm=TRUE)
+summary(hmn)
+Banimals=subset(animals, animals$ENVIRONMENT=="B - FOREST STEPPE") 
+
+Canimals=subset(animals, animals$ENVIRONMENT=="C - WEST STEPPE") 
+
+Danimals=subset(animals, animals$ENVIRONMENT=="D - MOUNTAIN/FOREST STEPPE") 
+
+Eanimals=subset(animals, animals$ENVIRONMENT=="E - ARID/MOUNTAIN STEPPE") 
+
+Fanimals=subset(animals, animals$ENVIRONMENT=="F - DESERT OASES") 
+
+Ganimals=subset(animals, animals$ENVIRONMENT=="G - ARID DESERT") 
+
+Ahuman=subset(human, human$ENVIRONMENT=="A - SEMI-ARID STEPPE") 
+
+Bhuman=subset(human, human$ENVIRONMENT=="B - FOREST STEPPE") 
+
+Chuman=subset(human, human$ENVIRONMENT=="C - WEST STEPPE") 
+
+Dhuman=subset(human, human$ENVIRONMENT=="D - MOUNTAIN/FOREST STEPPE") 
+
+Ehuman=subset(human, human$ENVIRONMENT=="E - ARID/MOUNTAIN STEPPE") 
+
+Fhuman=subset(human, human$ENVIRONMENT=="F - DESERT OASES") 
+
+Ghuman=subset(human, human$ENVIRONMENT=="G - ARID DESERT") 
+ABanimals=subset(Aanimals, Aanimals$CHRONOLOGY=="BRONZE AGE") 
